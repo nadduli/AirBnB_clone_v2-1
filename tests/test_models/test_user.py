@@ -1,61 +1,43 @@
 #!/usr/bin/python3
 """ """
-import os
-from unittest.case import skipIf
-
-from models.user import User
 from tests.test_models.test_base_model import test_basemodel
+from models.user import User
+import os
 
 
 class test_User(test_basemodel):
-    """ """
+    """ test class for user model"""
 
     def __init__(self, *args, **kwargs):
-        """ """
+        """ user test class init"""
         super().__init__(*args, **kwargs)
         self.name = "User"
         self.value = User
 
-    @skipIf(
-        os.environ.get('HBNB_TYPE_STORAGE') != 'file',
-        "File storage tests only"
-    )
     def test_first_name(self):
-        """ """
+        """ testing user first anme attr"""
         new = self.value()
-        new.first_name = "toto"
-        self.assertIn("'first_name': '{}'".format(new.first_name), str(new))
-        # self.assertEqual(type(new.first_name), str)
+        self.assertEqual(type(new.first_name), str if
+                         os.getenv('HBNB_TYPE_STORAGE') != 'db' else
+                         type(None))
 
-    @skipIf(
-        os.environ.get('HBNB_TYPE_STORAGE') != 'file',
-        "File storage tests only"
-    )
     def test_last_name(self):
-        """ """
+        """ testing user last name attr"""
         new = self.value()
-        new.last_name = "George"
-        self.assertIn("'last_name': '{}'".format(new.last_name), str(new))
-        # self.assertEqual(type(new.last_name), str)
+        self.assertEqual(type(new.last_name), str if
+                         os.getenv('HBNB_TYPE_STORAGE') != 'db' else
+                         type(None))
 
-    @skipIf(
-        os.environ.get('HBNB_TYPE_STORAGE') != 'file',
-        "File storage tests only"
-    )
     def test_email(self):
-        """ """
+        """ testing user email attr"""
         new = self.value()
-        new.email = "test@test.com"
-        self.assertIn("'email': '{}'".format(new.email), str(new))
-        # self.assertEqual(type(new.email), str)
+        self.assertEqual(type(new.email), str if
+                         os.getenv('HBNB_TYPE_STORAGE') != 'db' else
+                         type(None))
 
-    @skipIf(
-        os.environ.get('HBNB_TYPE_STORAGE') != 'file',
-        "File storage tests only"
-    )
     def test_password(self):
-        """ """
+        """ testing user password attr"""
         new = self.value()
-        new.password = "test"
-        self.assertIn("'password': '{}'".format(new.password), str(new))
-        # self.assertEqual(type(new.password), str)
+        self.assertEqual(type(new.password), str if
+                         os.getenv('HBNB_TYPE_STORAGE') != 'db' else
+                         type(None))
